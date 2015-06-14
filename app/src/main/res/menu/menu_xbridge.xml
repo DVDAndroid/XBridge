@@ -1,5 +1,6 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools" tools:context=".XBridgeActivity">
+      xmlns:tools="http://schemas.android.com/tools"
+      tools:context=".XBridgeActivity">
     <item
         android:id="@+id/debug"
         android:checkable="true"

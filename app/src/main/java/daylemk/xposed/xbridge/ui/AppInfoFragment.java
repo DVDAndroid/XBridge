@@ -15,74 +15,78 @@ import daylemk.xposed.xbridge.R;
 import daylemk.xposed.xbridge.action.AppInfoAction;
 
 /**
- * Created by DayLemK on 2015/5/14.
- * AppInfo Action settings fragment
+ * Created by DayLemK on 2015/5/14. AppInfo Action settings fragment
  */
 public class AppInfoFragment extends HeaderPreferenceFragment {
-    public static final String TAG = "AppInfoFragment";
+	public static final String TAG = "AppInfoFragment";
 
-    private SwitchPreference preferenceStatusBar;
-    private SwitchPreference preferenceRecentTask;
-//    private SwitchPreference preferenceAppInfo;
+	private SwitchPreference preferenceStatusBar;
+	private SwitchPreference preferenceRecentTask;
 
-    // every sub class should has this method
-    public static Drawable getPkgIcon(PackageManager pm) {
-        return new AppInfoAction().getIcon(pm);
-    }
+	// private SwitchPreference preferenceAppInfo;
 
-    public static AppInfoFragment getFragment(Bundle bundle) {
-        AppInfoFragment fragment = new AppInfoFragment();
-        fragment.setArguments(bundle);
-        return fragment;
-    }
+	// every sub class should has this method
+	public static Drawable getPkgIcon(PackageManager pm) {
+		return new AppInfoAction().getIcon(pm);
+	}
 
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        this.addPreferencesFromResource(R.xml.preference_appinfo);
-        addRebootPreference(this);
-    }
+	public static AppInfoFragment getFragment(Bundle bundle) {
+		AppInfoFragment fragment = new AppInfoFragment();
+		fragment.setArguments(bundle);
+		return fragment;
+	}
 
-    @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle
-            savedInstanceState) {
-        preferenceStatusBar = (SwitchPreference) this.findPreference(AppInfoAction
-                .keyShowInStatusBar);
-        preferenceRecentTask = (SwitchPreference) this.findPreference(AppInfoAction
-                .keyShowInRecentTask);
-//        preferenceAppInfo = (SwitchPreference) this.findPreference(AppInfoAction
-//                .keyShowInAppInfo);
-        preferenceStatusBar.setOnPreferenceChangeListener(this);
-        preferenceRecentTask.setOnPreferenceChangeListener(this);
-//        preferenceAppInfo.setOnPreferenceChangeListener(this);
-        // set values
-//        preferenceStatusBar.setChecked(PlayAction.isShowInStatusBar);
-//        preferenceRecentTask.setChecked(PlayAction.isShowInRecentTask);
-//        preferenceAppInfo.setChecked(PlayAction.isShowInAppInfo);
+	@Override
+	public void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
+		this.addPreferencesFromResource(R.xml.preference_appinfo);
+		addRebootPreference(this);
+	}
 
-        addPreferences2TheList(preferenceStatusBar, preferenceRecentTask/*, preferenceAppInfo*/);
+	@Override
+	public View onCreateView(@NonNull LayoutInflater inflater,
+			ViewGroup container, Bundle savedInstanceState) {
+		preferenceStatusBar = (SwitchPreference) this
+				.findPreference(AppInfoAction.keyShowInStatusBar);
+		preferenceRecentTask = (SwitchPreference) this
+				.findPreference(AppInfoAction.keyShowInRecentTask);
+		// preferenceAppInfo = (SwitchPreference)
+		// this.findPreference(AppInfoAction
+		// .keyShowInAppInfo);
+		preferenceStatusBar.setOnPreferenceChangeListener(this);
+		preferenceRecentTask.setOnPreferenceChangeListener(this);
+		// preferenceAppInfo.setOnPreferenceChangeListener(this);
+		// set values
+		// preferenceStatusBar.setChecked(PlayAction.isShowInStatusBar);
+		// preferenceRecentTask.setChecked(PlayAction.isShowInRecentTask);
+		// preferenceAppInfo.setChecked(PlayAction.isShowInAppInfo);
 
-        return super.onCreateView(inflater, container, savedInstanceState);
-    }
+		addPreferences2TheList(preferenceStatusBar, preferenceRecentTask/*
+																		 * ,
+																		 * preferenceAppInfo
+																		 */);
 
-    @Override
-    public void onActivityCreated(Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
-        // set the master switch here
-        // set the tag, so wo can save the preference
-        switchBar.getSwitch().setTag(AppInfoAction.keyShow);
-        switchBar.setChecked(AppInfoAction.isShow);
-    }
+		return super.onCreateView(inflater, container, savedInstanceState);
+	}
 
-    @Override
-    public boolean onPreferenceChange(Preference preference, Object newValue) {
-        super.onPreferenceChange(preference, newValue);
-        return true;
-    }
+	@Override
+	public void onActivityCreated(Bundle savedInstanceState) {
+		super.onActivityCreated(savedInstanceState);
+		// set the master switch here
+		// set the tag, so wo can save the preference
+		switchBar.getSwitch().setTag(AppInfoAction.keyShow);
+		switchBar.setChecked(AppInfoAction.isShow);
+	}
 
-    @Override
-    public void onSwitchChanged(Switch switchView, boolean isChecked) {
-        super.onSwitchChanged(switchView, isChecked);
-        AppInfoAction.isShow = isChecked;
-    }
+	@Override
+	public boolean onPreferenceChange(Preference preference, Object newValue) {
+		super.onPreferenceChange(preference, newValue);
+		return true;
+	}
+
+	@Override
+	public void onSwitchChanged(Switch switchView, boolean isChecked) {
+		super.onSwitchChanged(switchView, isChecked);
+		AppInfoAction.isShow = isChecked;
+	}
 }
